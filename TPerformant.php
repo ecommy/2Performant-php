@@ -972,8 +972,11 @@ class TPerformant {
 				throw new TPException_Transport($this, 'Unable to parse response from API', null, $response);
 			else
 				return true;
-		if(isset($returned->error))
+		if(isset($returned->error)) {
+			// temp fix return error directly
+			return $returned;
 			throw new TPException_API($this, $returned->error, null, array('request'=>array($url, $send, $method, $where),'response'=>$response));
+		}
 
 		if (is_array($returned)) {
 			$result = array();
